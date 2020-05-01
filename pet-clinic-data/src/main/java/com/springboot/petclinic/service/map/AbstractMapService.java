@@ -1,10 +1,12 @@
 package com.springboot.petclinic.service.map;
 
+import com.springboot.petclinic.model.BaseEntity;
+
 import java.util.*;
 
-public  class AbstractMapService<T,ID> {
+public  class AbstractMapService<T extends BaseEntity,ID> {
 
-    protected Map<ID,T> map=new HashMap<>();
+    protected Map<Long,T> map=new HashMap<>();
 
     List<T> findAll(){
         return new ArrayList<>(map.values());
@@ -15,9 +17,21 @@ public  class AbstractMapService<T,ID> {
     }
 
 
-    T save(ID id,T object){
+    T save(T object){
 
-        map.put(id,object);
+
+        if(object!=null){
+            if(object.getId() == null){
+
+                    object.setId(getNextID());
+
+            }
+            map.put(object.getId(),object);
+
+        }else{
+
+            throw new NullPointerException("Empty Object");
+        }
 
         return object;
     }
@@ -25,7 +39,6 @@ public  class AbstractMapService<T,ID> {
     void deleteById(ID id){
 
         map.remove(id);
-
 
     }
 
@@ -37,7 +50,18 @@ public  class AbstractMapService<T,ID> {
     }
 
 
+       public Long getNextID(){
 
+       Long next_Id = null;
+       try{
+
+           next_Id=Collections.max(map.keySet()) +1;
+       }catch (NoSuchElementException e ){
+           next_Id=1L;
+
+       }
+         return  next_Id;
+       }
 
 
 

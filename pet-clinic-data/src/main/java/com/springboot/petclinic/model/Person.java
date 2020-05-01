@@ -3,8 +3,8 @@ package com.springboot.petclinic.model;
 public class Person extends BaseEntity {
 
 
-    public String firstName;
-    public String lastName;
+    private String firstName;
+    private String lastName;
 
     public String getFirstName() {
         return firstName;
