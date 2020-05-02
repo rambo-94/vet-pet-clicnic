@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/owners")
 @CrossOrigin(origins = "http://localhost:4200")
 public class OwnerController {
+
     private final OwnerService ownerService;
     public OwnerController(OwnerService ownerService) {
         this.ownerService = ownerService;
@@ -27,5 +28,13 @@ public class OwnerController {
        List<Owner> owners=ownerService.findAll();
         return owners;
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @RequestMapping(method = {RequestMethod.GET},path = {"/find"})
+    public Owner findOwners(){
+
+
+        return null;
     }
 }
