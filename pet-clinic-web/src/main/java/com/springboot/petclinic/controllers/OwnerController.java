@@ -32,7 +32,7 @@ public class OwnerController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @RequestMapping(method = {RequestMethod.GET},path = {"/find"})
-    public Owner findOwners(){
+    public Owner findOwner(){
 
 
         return null;
