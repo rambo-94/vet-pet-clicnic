@@ -35,8 +35,6 @@ public class Pet  extends BaseEntity{
         this.visits = visits;
     }
 
-
-
     public String getName() {
         return name;
     }
