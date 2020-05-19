@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <form [formGroup]="ownerForm" (ngSubmit)="onSubmit(ownerForm.value)">
+
+    <div class="form-group" [ngClass]="{ 'has-danger': ownerForm.controls.firstName.dirty && !ownerForm.controls.firstName.valid
+    ,'has-success':ownerForm.controls.firstName.dirty && ownerForm.controls.firstName.valid}">
+      <label for="firstName" class="col-sm-2 control-label">First Name</label>
+      <div class="col-sm-10">
+        <input type ="text" id="firstName"  formControlName="firstName"/>
+        <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="ownerForm.controls.firstName.valid" [class.glyphicon-remove]="!ownerForm.controls.firstName.valid" aria-hidden="true"></span>
+        <span class="help-block" *ngIf="ownerForm.controls.firstName.dirty && ownerForm.controls.firstName.errors.required">First name is required</span>
+        <span class="help-block" *ngIf="ownerForm.controls.firstName.dirty && ownerForm.controls.firstName.errors.minlength">First name must be at least 2 characters long</span>
+      </div>
+
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-danger': ownerForm.controls.lastName.dirty && !ownerForm.controls.lastName.valid
+    ,'has-success': ownerForm.controls.lastName.dirty && ownerForm.controls.lastName.valid}">
+
+      <label for="lastName" class="col-sm-2 control-label">last Name</label>
+      <div class="col-sm-10">
+        <input type ="text" id="lastName" formControlName="lastName"/>
+        <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="ownerForm.controls.lastName.valid" [class.glyphicon-remove]="!ownerForm.controls.lastName.valid" aria-hidden="true"></span>
+        <span class="help-block" *ngIf="ownerForm.controls.lastName.dirty && ownerForm.controls.lastName.errors.required">Last name is required</span>
+        <span class="help-block" *ngIf="ownerForm.controls.lastName.dirty && ownerForm.controls.lastName.errors.minlength">Last name must be at least 2 characters long</span>
+
+      </div>
+    </div>
+
+    <div formGroupName="address">
+      <div class="form-group" [ngClass]="{ 'has-danger': ownerForm.controls.address1.dirty && !ownerForm.controls.address1.valid
+    ,'has-success': ownerForm.controls.address1.dirty && ownerForm.controls.address1.valid}">
+        <label for="address1" class="col-sm-2 control-label">address1</label>
+        <div class="col-sm-10">
+          <input type ="text" id="address1" formControlName="address1"/>
+          <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="ownerForm.controls.address1.valid" [class.glyphicon-remove]="!ownerForm.controls.address1.valid" aria-hidden="true"></span>
+          <span class="help-block" *ngIf="ownerForm.controls.address1.dirty && ownerForm.controls.address1.errors.required">Address is required</span>
+          <span class="help-block" *ngIf="ownerForm.controls.address1.dirty && ownerForm.controls.address1.errors.minlength">Address must be at least 2 characters long</span>
+        </div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-danger': ownerForm.controls.city.dirty && !ownerForm.controls.city.valid
+    ,'has-success': ownerForm.controls.city.dirty && ownerForm.controls.city.valid}">
+        <label for="city" class="col-sm-2 control-label">city</label>
+        <div class="col-sm-10">
+          <input type ="text" id="city" formControlName="city"/>
+          <span class="glyphicon form-control-feedback" [class.glyphicon-ok]="ownerForm.controls.city.valid" [class.glyphicon-remove]="!ownerForm.controls.city.valid" aria-hidden="true"></span>
+          <span class="help-block" *ngIf="ownerForm.controls.city.dirty && ownerForm.controls.city.errors.required">City is required</span>
+          <span class="help-block" *ngIf="ownerForm.controls.city.dirty && ownerForm.controls.city.errors.minlength">City must be at least 4 characters long</span>
+          <span class="help-block" *ngIf="ownerForm.controls.city.dirty && ownerForm.controls.city.errors.noCity">City is required</span>
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{ 'has-danger': ownerForm.controls.telephone.dirty && !ownerForm.controls.telephone.valid
+    ,'has-success': ownerForm.controls.telephone.dirty && ownerForm.controls.telephone.valid}">
+        <label for="telephone" class="col-sm-2 control-label">telephone</label>
+        <div class="col-sm-10">
+          <input type ="text" id="telephone" formControlName="telephone"/>
+          <span class="help-block" *ngIf="ownerForm.controls.telephone.dirty && ownerForm.controls.telephone.errors.required">Telephone number name is required</span>
+          <span class="help-block" *ngIf="ownerForm.controls.telephone.dirty && ownerForm.controls.telephone.errors.pattern">Alphabets not allowed ,requires 10 digits</span>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-default" type="button" (click)="gotoOwnersList()">Back</button>
+        <button class="btn btn-default" type="submit" [disabled]="!ownerForm.valid">Add Owner</button>
+      </div>
+    </div>
+
+
+  </form>
+
+</div>
+
+
+
+
+
+
+

@@ -1,30 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {OwnersModule} from './owners/owners.module';
 
 import { AppComponent } from './app.component';
-import { OwnersComponent } from './onwers/owners/owners.component';
-import { PetsComponent } from './pets/pets.component';
-import { PettypesComponent } from './pettypes/pettypes.component';
-import { SpecialtiesComponent } from './specialties/specialties.component';
-import { VetsComponent } from './vets/vets.component';
-import { VisitsComponent } from './visits/visits.component';
-import { OwnerAddComponent } from './onwers/owner-add/owner-add.component';
-import { PetAddComponent } from './pets/pet-add/pet-add.component';
+import {PetsModule} from './pets/pets.module';
+
+
 
 @NgModule({
   declarations: [
-    AppComponent,
-    OwnersComponent,
-    PetsComponent,
-    PettypesComponent,
-    SpecialtiesComponent,
-    VetsComponent,
-    VisitsComponent,
-    OwnerAddComponent,
-    PetAddComponent
+    AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    PetsModule,
+    OwnersModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
