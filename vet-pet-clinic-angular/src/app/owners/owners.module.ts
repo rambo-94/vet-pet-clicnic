@@ -7,15 +7,17 @@ import { OwnerListComponent } from './owner-list/owner-list.component';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {OwnersRoutingModule} from './owner-routing.moudle';
 import {OwnerService} from './owner.service';
+import {PetsModule} from '../pets/pets.module';
 
 @NgModule({
   declarations: [OwnerAddComponent, OwnerDetailComponent, OwnerEditComponent, OwnerListComponent],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        OwnersRoutingModule,
-        FormsModule
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    OwnersRoutingModule,
+    FormsModule,
+    PetsModule
+  ],
   providers : [OwnerService],
 
 })

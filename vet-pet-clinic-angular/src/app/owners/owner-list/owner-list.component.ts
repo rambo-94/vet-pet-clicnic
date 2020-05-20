@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Owner} from '../owner';
+import {OwnerService} from '../owner.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-owner-list',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OwnerListComponent implements OnInit {
 
-  constructor() { }
+  errorMessage: string;
+  owners: Owner[];
 
-  ngOnInit() {
+  constructor(private router: Router, private ownerService: OwnerService) {
   }
 
+  ngOnInit() {
+    this.ownerService.getOwners().subscribe(
+      owners => this.owners = owners,
+      error => this.errorMessage = error as any);
+  }
+
+  onSelect(owner: Owner) {
+    this.router.navigate(['/owners', owner.id]);
+  }
+
+  addOwner() {
+    this.router.navigate(['/owners/add']);
+  }
 }
