@@ -1,20 +1,18 @@
 package com.springboot.petclinic.controllers;
 
+import com.springboot.petclinic.exceptions.RuntimeCustomException;
 import com.springboot.petclinic.model.Owner;
-import com.springboot.petclinic.model.Pet;
-import com.springboot.petclinic.model.PetType;
-import com.springboot.petclinic.model.Visit;
 import com.springboot.petclinic.service.OwnerService;
 import com.springboot.petclinic.service.PetService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/owners")
@@ -40,6 +38,10 @@ public class OwnerController {
     public List<Owner> listOwners(){
 
        List<Owner> owners=ownerService.findAll();
+        if (owners == null) {
+
+            throw new RuntimeCustomException("No owners with lastName found ");
+        }
         return owners;
 
     }
@@ -54,12 +56,12 @@ public class OwnerController {
 
         List<Owner> results = this.ownerService.findAllByLastName("%" + owner.getLastName()+"%");
 
-        if (results.isEmpty()) {
+        if (results == null) {
 
-            return null;
-        }else{
-            return results;
+            throw new RuntimeCustomException("No owners with lastName found ");
         }
+            return results;
+
     }
 
 
@@ -67,7 +69,11 @@ public class OwnerController {
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("/{ownerId}")
     public Owner findOwnerByID(@PathVariable("ownerId") Long id ){
-         Owner owner=ownerService.findById(id);
+       Owner owner=ownerService.findById(id);
+       if(owner == null){
+
+           throw  new RuntimeCustomException("Entity not found");
+       }
 
         return owner;
     }
@@ -75,30 +81,31 @@ public class OwnerController {
 
     @RequestMapping(method = RequestMethod.PUT,path = "/owners/new")
     @CrossOrigin(origins = "http://localhost:4200")
-    public String addNewOwner(@Valid Owner owner) {
+    public ResponseEntity addNewOwner(@Valid Owner owner) {
 
             Owner savedOwner=this.ownerService.save(owner);
-            if(savedOwner!=null){
+            if(savedOwner==null){
 
-                return "success";
 
-            }else {
-                return "error saving owner";
+                throw new RuntimeCustomException("Adding new owner failed");
+
             }
 
-    }
+            return new ResponseEntity(HttpStatus.OK);
+
+
+}
     @RequestMapping(method = RequestMethod.POST,path = "/owners/{ownerId}/edit")
-    public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") Long ownerId) {
+    public ResponseEntity processUpdateOwnerForm(@Valid Owner owner, BindingResult result, @PathVariable("ownerId") Long ownerId) {
 
             owner.setId(ownerId);
             Owner updatedOwner=this.ownerService.save(owner);
-            if(updatedOwner !=null){
+            if(updatedOwner.getId()!=ownerId) {
 
-                return "success";
-            }else {
-
-                return "error saving owner";
+                throw new RuntimeCustomException("Update failed");
             }
-        }
+        return new ResponseEntity(HttpStatus.OK);
+
+    }
 }
 

@@ -12,12 +12,12 @@ import java.util.List;
 
 @Service
 @Profile({"default","map"})
-public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements OwnerService{
+public class OwnerMapService extends AbstractMapService<Owner,Long> implements OwnerService{
 
     private PetTypeService petTypeService;
     private PetService petService;
     @Autowired
-    public OwnerServiceMap(PetTypeService petTypeService, PetService petService) {
+    public OwnerMapService(PetTypeService petTypeService, PetService petService) {
         this.petTypeService = petTypeService;
         this.petService = petService;
     }
@@ -81,6 +81,11 @@ public class OwnerServiceMap extends AbstractMapService<Owner,Long> implements O
 
     @Override
     public Owner findByLastName(String lastName) {
+        return null;
+    }
+
+    @Override
+    public List<Owner> findAllByLastName(String lastName) {
         return null;
     }
 }
