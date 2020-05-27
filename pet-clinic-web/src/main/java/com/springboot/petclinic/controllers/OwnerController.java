@@ -26,7 +26,7 @@ public class OwnerController {
         this.petService = petService;
     }
 
-    @InitBinder
+    @InitBinder(value = "owner")
     public void setAllowedFields (WebDataBinder dataBinder){
 
            dataBinder.setDisallowedFields("id");
