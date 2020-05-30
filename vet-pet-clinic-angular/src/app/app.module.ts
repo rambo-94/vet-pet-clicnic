@@ -4,6 +4,7 @@ import {OwnersModule} from './owners/owners.module';
 
 import { AppComponent } from './app.component';
 import {PetsModule} from './pets/pets.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -14,7 +15,8 @@ import {PetsModule} from './pets/pets.module';
   imports: [
     BrowserModule,
     PetsModule,
-    OwnersModule
+    OwnersModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
