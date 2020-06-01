@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Pet} from '../pet';
+import {Router} from '@angular/router';
+
+import {PetService} from '../pet.service';
 
 @Component({
   selector: 'app-pet-list',
@@ -7,9 +11,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PetListComponent implements OnInit {
 
-  constructor() { }
+  errorMessage: string;
+  @Input() pet: Pet;
+  responseStatus: number;
+  deleteSuccess = false;
+
+  constructor(private router: Router, private petService: PetService) {
+    this.pet = {} as Pet;
+  }
 
   ngOnInit() {
+  }
+
+  editPet(pet: Pet) {
+    this.router.navigate(['/pets', pet.id, 'edit']);
+  }
+
+  deletePet(pet: Pet) {
+    this.petService.deletePet(pet.id.toString()).subscribe(
+      response => {
+        this.deleteSuccess = true;
+        this.pet = {} as Pet;
+      },
+      error => this.errorMessage = error as any);
+  }
+
+  addVisit(pet: Pet) {
+    this.router.navigate(['/pets', pet.id, 'visits', 'add']);
   }
 
 }

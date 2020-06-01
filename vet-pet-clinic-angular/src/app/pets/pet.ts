@@ -6,7 +6,7 @@ export interface Pet {
   id: number;
   name: string;
   birthDate: string;
-  type: PetType;
+  petType: PetType;
   owner: Owner;
   visits: Visit[];
 }
